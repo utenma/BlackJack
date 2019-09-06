@@ -1,7 +1,5 @@
 package com.game;
 
-import java.util.ArrayList;
-
 public class Croupier extends Jugador {
 
     private static Croupier croupier;
@@ -18,9 +16,10 @@ public class Croupier extends Jugador {
 
     @Override
     public void pedirCarta(){
-        Carta carta = Baraja.getBaraja().tomarCartaSuperior();
+        Carta carta = BarajaInglesa54.getBarajaInglesa54().tomarCartaSuperior();
         if (!mano.isEmpty()) carta.voltear();
         mano.add(carta);
+        System.out.println(this + " tomó una carta");
     }
 
     @Override

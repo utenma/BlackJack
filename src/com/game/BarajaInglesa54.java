@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class Baraja {
+public class BarajaInglesa54 {
 
     private ArrayList<Carta> cartas;
+    private static BarajaInglesa54 barajaInglesa54;
 
-    private static Baraja baraja;
-
-    private Baraja() {
+    private BarajaInglesa54() {
         cartas = new ArrayList<Carta>();
         for (Rango i : Rango.values()) {
             if ((i == Rango.joker1) || (i == Rango.joker2)) continue;
@@ -23,11 +22,12 @@ public class Baraja {
         }
             cartas.add(new Carta(Rango.joker1));
             cartas.add(new Carta(Rango.joker2));
+        System.out.println("Baraja Lista");
     }
 
-    public static Baraja getBaraja() {
-        if (baraja == null) baraja = new Baraja();
-        return baraja;
+    public static BarajaInglesa54 getBarajaInglesa54() {
+        if (barajaInglesa54 == null) barajaInglesa54 = new BarajaInglesa54();
+        return barajaInglesa54;
     }
 
     public void mostrar() {
@@ -50,18 +50,21 @@ public class Baraja {
         return tomarCartaEnIndice(0);
     }
 
-
     public Carta tomarCartaAleatoria() {
         Random random = new Random();
         return tomarCartaEnIndice(random.nextInt());
     }
 
     public Carta tomarCartaEnIndice(int posicion) {
-        if (!baraja.cartas.isEmpty()){
-            Carta carta = baraja.cartas.get(posicion);
-            baraja.cartas.remove(posicion);
+        if (!barajaInglesa54.cartas.isEmpty()){
+            Carta carta = barajaInglesa54.cartas.get(posicion);
+            barajaInglesa54.cartas.remove(posicion);
             return carta;
         }
         else return null;
+    }
+
+    public int getCantidadDeCartas() {
+        return cartas.size();
     }
 }
