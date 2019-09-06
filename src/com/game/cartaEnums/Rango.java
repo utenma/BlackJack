@@ -1,15 +1,15 @@
 package com.game.cartaEnums;
 
 public enum Rango {
-    dos(2, "2"),
-    tres(3, "3"),
-    cuatro(4, "4"),
-    cinco(5, "5"),
-    seis(6, "6"),
-    siete(7,"7"),
-    ocho(8, "8"),
-    nueve(9, "9"),
-    diez(10, "10"),
+    dos(2),
+    tres(3),
+    cuatro(4),
+    cinco(5),
+    seis(6),
+    siete(7),
+    ocho(8),
+    nueve(9),
+    diez(10),
     jota(10, "J"),
     reina(10, "Q"),
     rey(10, "K"),
@@ -21,6 +21,10 @@ public enum Rango {
     Rango(int valor, String rango) {
         this.valor = valor;
         this.rango = rango;
+    }
+
+    Rango(int valor) {
+        this.valor = valor;
     }
 
     public int getValor() {
