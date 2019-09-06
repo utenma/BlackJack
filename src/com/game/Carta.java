@@ -8,8 +8,13 @@ public class Carta {
     private Rango rango;
     private boolean lado;
 
-    public Carta(Palo palo, Rango rango) {
+    public Carta(Rango rango, Palo palo) {
+        this.rango = rango;
         this.palo = palo;
+        this.lado = false;
+    }
+
+    public Carta(Rango rango){
         this.rango = rango;
         this.lado = false;
     }
@@ -21,6 +26,9 @@ public class Carta {
 
     @Override
     public String toString() {
-        return "Carta : " + palo.toString() + " " + rango.toString();
+        if(rango == Rango.joker1) return "Joker 1";
+        else if(rango == Rango.joker2) return "Joker 2";
+        else return rango.toString() + " de " +  palo.toString();
+
     }
 }

@@ -16,4 +16,9 @@ public enum Palo {
     public String getPalo() {
         return palo;
     }
+
+    @Override
+    public String toString() {
+        return palo;
+    }
 }
