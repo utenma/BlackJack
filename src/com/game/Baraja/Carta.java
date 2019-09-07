@@ -1,7 +1,4 @@
-package com.game;
-
-import com.game.cartaEnums.Palo;
-import com.game.cartaEnums.Rango;
+package com.game.Baraja;
 
 public class Carta {
     private Palo palo;
@@ -25,17 +22,20 @@ public class Carta {
 
     @Override
     public String toString() {
-        if(bocaAbajo) return "Carta oculta";
+        if(bocaAbajo) return "Carta oculta : " + rango.toString() + " de " + palo.toString();
         else {
-            if (rango == Rango.joker1) return "Joker 1";
-            else if (rango == Rango.joker2) return "Joker 2";
+            if (rango == Rango.joker1) return "Joker1";
+            else if  (rango == Rango.joker2) return "Joker2";
             else return rango.toString() + " de " + palo.toString();
         }
     }
 
     public int getValor() {
-        if(bocaAbajo) return 0;
-        else return rango.getValor();
+        return rango.getValor();
+    }
+
+    public Rango getRango() {
+        return rango;
     }
 
     public boolean getBocaAbajo(){

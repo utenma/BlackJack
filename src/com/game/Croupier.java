@@ -1,5 +1,8 @@
 package com.game;
 
+import com.game.Baraja.BarajaInglesa54;
+import com.game.Baraja.Carta;
+
 public class Croupier extends Jugador {
 
     private static Croupier croupier;
@@ -17,8 +20,8 @@ public class Croupier extends Jugador {
     @Override
     public void pedirCarta(){
         Carta carta = BarajaInglesa54.getBarajaInglesa54().tomarCartaSuperior();
-        if (!mano.isEmpty()) carta.voltear();
-        mano.add(carta);
+        if (!getMano().isEmpty()) carta.voltear();
+        getMano().add(carta);
         System.out.println(this + " tomó una carta");
     }
 

@@ -1,4 +1,4 @@
-package com.game.cartaEnums;
+package com.game.Baraja;
 
 public enum Palo {
 

@@ -1,8 +1,10 @@
-package com.game.cartaEnums;
+package com.game.Baraja;
+
+import java.util.Random;
 
 public enum Rango {
-    joker1(0, "Joker"),
-    joker2(1 ,"joker"),
+    joker1(1 ,"joker1"),
+    joker2(1 ,"joker2"),
     dos(2),
     tres(3),
     cuatro(4),
@@ -27,10 +29,6 @@ public enum Rango {
 
     Rango(int valor) {
         this.valor = valor;
-    }
-
-    Rango(){
-        rango = "Joker";
     }
 
     public int getValor() {

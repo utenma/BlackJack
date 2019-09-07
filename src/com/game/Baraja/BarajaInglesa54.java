@@ -1,7 +1,4 @@
-package com.game;
-
-import com.game.cartaEnums.Palo;
-import com.game.cartaEnums.Rango;
+package com.game.Baraja;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,10 +11,10 @@ public class BarajaInglesa54 {
 
     private BarajaInglesa54() {
         cartas = new ArrayList<Carta>();
-        for (Rango i : Rango.values()) {
-            if ((i == Rango.joker1) || (i == Rango.joker2)) continue;
+        for (Rango rango : Rango.values()) {
+            if (rango.getValor() == 1 ) continue;
             for (Palo j : Palo.values()) {
-                cartas.add(new Carta(i, j));
+                cartas.add(new Carta(rango, j));
             }
         }
             cartas.add(new Carta(Rango.joker1));

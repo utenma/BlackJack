@@ -1,12 +1,25 @@
 package com.game;
 
-import javax.sound.midi.Soundbank;
+import com.game.Baraja.BarajaInglesa54;
+import com.game.Baraja.Carta;
+
 import java.util.ArrayList;
 
 public class Jugador {
 
-    protected ArrayList<Carta> mano;
-    protected String nombre;
+    private ArrayList<Carta> mano;
+    private JugadorEstado estado;
+
+    public void setEstado(JugadorEstado estado) {
+        this.estado = estado;
+    }
+
+    public JugadorEstado getEstado() {
+        return estado;
+    }
+
+    private String nombre;
+    private JugadorAccion accion;
     public static ArrayList<Jugador> jugadores = new ArrayList<>();
 
     public Jugador(String nombre) {
@@ -15,8 +28,18 @@ public class Jugador {
         System.out.println(this + ", ha entrado al juego");
     }
 
+    public void setAccion(JugadorAccion accion) {
+        this.accion = accion;
+    }
+
+    public JugadorAccion getAccion() {
+        return accion;
+    }
+
     protected Jugador() {
         mano = new ArrayList<Carta>();
+        estado = JugadorEstado.jugar;
+        accion = JugadorAccion.tomarCarta;
         jugadores.add(this);
     }
 
@@ -33,15 +56,7 @@ public class Jugador {
 
     @Override
     public String toString() {
-        return "Jugador " + jugadores.indexOf(this)  + " : " + nombre;
+        return "Jugador " + nombre;
     }
 
-    public int[] getPuntajeMano(){
-        int[] puntaje = {0,0};
-        for (Carta carta: mano) {
-            if (!carta.getBocaAbajo()) puntaje[0] += carta.getValor();
-            else puntaje[1]++;
-        }
-        return puntaje;
-    }
 }
