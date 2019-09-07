@@ -2,14 +2,13 @@ package com.game;
 
 import com.game.Baraja.BarajaInglesa54;
 import com.game.Baraja.Carta;
-import com.game.Baraja.Rango;
 
-import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class BlackJack {
     private static ArrayList<Jugador> jugadoresEnJuego;
+    public static boolean juegoTerminado;
 
     public static void main(String[] args) {
         /*       System.out.println("Enum de palo");
@@ -32,6 +31,7 @@ public class BlackJack {
         gameLoop();
     }
 
+    // TODO: 9/7/2019 use stream when posible
     private static void gameLoop() {
         byte ronda = 0;
         boolean finished = false;
@@ -49,15 +49,15 @@ public class BlackJack {
             revisarCartasDelJugador(croupier);
             System.out.println();
 
-            if (croupier.getEstado() != JugadorEstado.jugar) {
-                break;
-            }
+            if (croupier.getEstado() != JugadorEstado.jugar) break;
+
             for (int i = 0; i < jugadoresEnJuego.size(); i++) {
                 Jugador jugador = jugadoresEnJuego.get(i);
                 decidirSiTomarCarta(jugador);
                 revisarCartasDelJugador(jugador);
                 System.out.println();
             }
+
             if (Jugador.jugadores.size() == 0) finished = true;
 
             boolean tomaronCartas = false;
@@ -73,12 +73,35 @@ public class BlackJack {
             }
         }
 
-        //todo revisar quienes ganan de los jugadores y juego o crupier con las cartas restantes
-    }
+        //revisar quienes ganan de los jugadores y juego o crupier con las cartas restantes
+        if(croupier.getEstado() == JugadorEstado.jugar){
+            int[] puntajesCroupier = calcularPuntajesMano(croupier);
+            int puntajeTotalCroupier = puntajesCroupier[0] + puntajesCroupier[1];
+            int puntosRestantesPara21Croupier = 21- puntajeTotalCroupier;
 
-    //todo check joker
+            for ( Jugador jugador : jugadoresEnJuego){
+                int[] puntajes = calcularPuntajesMano(jugador);
+                int puntajeTotal = puntajes[0] + puntajes[1];
+                int puntosRestantesPara21 = 21- puntajeTotal;
+                if (puntosRestantesPara21 < puntosRestantesPara21Croupier) jugador.setEstado(JugadorEstado.ganarPorPuntosContraCroupier);
+                else if (puntosRestantesPara21 == puntosRestantesPara21Croupier) jugador.setEstado(JugadorEstado.tablasConCroupier);
+                else jugador.setEstado(JugadorEstado.perderPorPuntosContraCroupier);
+            }
+        }
+        if(croupier.getEstado() == JugadorEstado.ganarCon21) {
+            jugadoresEnJuego.forEach(jugador -> jugador.setEstado(JugadorEstado.perderPorqueCroupierGanarCon21Puntos));
+        }
+        if(croupier.getEstado() == JugadorEstado.perderConMasde21){
+            jugadoresEnJuego.forEach(jugador -> jugador.setEstado(JugadorEstado.ganarPorqueCroupierPerderConMasDe21Puntos));
+        }
+
+        System.out.println();
+        System.out.println("Resultados");
+        Jugador.jugadores.forEach(jugador -> System.out.println("[ " + jugador + " : " + calcularPuntajeTotalMano(jugador) + " : " + jugador.getEstado().toString() + " ]"));
+    }
+    
     public static void revisarCartasDelJugador(Jugador jugador) {
-        int[] puntaje = calcularPuntajeMano(jugador);
+        int[] puntaje = calcularPuntajesMano(jugador);
 
         int puntajeCartasBocaArriba = puntaje[0];
         int puntajeCartasBocaAbajo = puntaje[1];
@@ -96,19 +119,17 @@ public class BlackJack {
         jugador.getMano().forEach(carta -> System.out.println(carta));
 
         // todo put set estado y print en set ha ganado p perdido
-        if (puntajeTotal == 21) jugador.setEstado(JugadorEstado.ganar);
-        else if (puntajeTotal > 21)  jugador.setEstado(JugadorEstado.perder);
-
-        if (jugador.getEstado()== JugadorEstado.ganar) {
-            System.out.println(jugador + " ha ganado ");
+        if (puntajeTotal == 21) {
+            jugador.setEstado(JugadorEstado.ganarCon21);
             jugadoresEnJuego.remove(jugador);
-        } else if (jugador.getEstado() == JugadorEstado.perder) {
-            System.out.println(jugador + " ha perdido ");
+        }
+        else if (puntajeTotal > 21) {
+            jugador.setEstado(JugadorEstado.perderConMasde21);
             jugadoresEnJuego.remove(jugador);
         }
     }
 
-    public static int[] calcularPuntajeMano(Jugador jugador) {
+    public static int[] calcularPuntajesMano(Jugador jugador) {
         //Declaracion sumatorias de puntaje
         int puntajeCartasBocaArriba = 0;
         int puntajeCartasBocaAbajo = 0;
@@ -140,9 +161,13 @@ public class BlackJack {
         return puntajes;
     }
 
+    private static int calcularPuntajeTotalMano(Jugador jugador){
+        int[] puntajes = calcularPuntajesMano(jugador);
+        return puntajes[0] + puntajes[1];
+    }
 
     public static void decidirSiTomarCarta(Jugador jugador) {
-        int[] puntajes = calcularPuntajeMano(jugador);
+        int[] puntajes = calcularPuntajesMano(jugador);
         int puntaje = puntajes[0] + puntajes[1];
         if (puntaje <= 11) {
             jugador.setAccion(JugadorAccion.tomarCarta);

@@ -2,6 +2,11 @@ package com.game;
 
 public enum JugadorEstado {
     jugar,
-    ganar,
-    perder,
+    ganarCon21,
+    perderConMasde21,
+    tablasConCroupier,
+    ganarPorPuntosContraCroupier,
+    perderPorPuntosContraCroupier,
+    ganarPorqueCroupierPerderConMasDe21Puntos,
+    perderPorqueCroupierGanarCon21Puntos,
 }
