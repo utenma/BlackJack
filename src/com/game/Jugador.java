@@ -11,20 +11,19 @@ public class Jugador {
     private JugadorEstado estado;
     private String nombre;
     private JugadorAccion accion;
-    public static ArrayList<Jugador> jugadores = new ArrayList<>();
-
-    public Jugador(String nombre) {
-        this();
-        this.nombre = nombre;
-        System.out.println(this + ", ha entrado al juego");
-    }
-
+    public static ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 
     protected Jugador() {
         mano = new ArrayList<Carta>();
         estado = JugadorEstado.jugar;
         accion = JugadorAccion.tomarCarta;
         jugadores.add(this);
+    }
+
+    public Jugador(String nombre) {
+        this();
+        this.nombre = nombre;
+        System.out.println(this + ", ha entrado al juego");
     }
 
     public void pedirCarta() {

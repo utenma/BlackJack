@@ -11,13 +11,7 @@ public class BlackJack {
     public static boolean juegoTerminado;
 
     public static void main(String[] args) {
-        /*       System.out.println("Enum de palo");
-        for(Palo i : Palo.values()) System.out.println(i.name() + " : "+ i.getPalo());
-
-        System.out.println();
-        System.out.println("Enum de rango");
-        for(Rango i : Rango.values()) System.out.println(i.name() + " : "+ i.getValor());*/
-
+        
         jugadoresEnJuego = new ArrayList<Jugador>();
         BarajaInglesa54 baraja = BarajaInglesa54.getBarajaInglesa54();
         baraja.barajar();
@@ -60,13 +54,10 @@ public class BlackJack {
 
             if (Jugador.jugadores.size() == 0) finished = true;
 
-            boolean tomaronCartas = false;
-            for (Jugador jugador : jugadoresEnJuego) {
-                if (jugador.getAccion() == JugadorAccion.tomarCarta) {
-                    tomaronCartas = true;
-                    break;
-                }
-            }
+            //Revisar si todos estan plantados
+            boolean tomaronCartas = jugadoresEnJuego.stream().anyMatch(jugador -> jugador.getAccion() == JugadorAccion.tomarCarta);
+            //jugadoresEnJuego.stream().filter(jugador -> jugador.getAccion() == JugadorAccion.tomarCarta).findFirst();
+
             if (!tomaronCartas) {
                 System.out.println("Nadie tomó Cartas, se terminan las rondas");
                 break;
@@ -118,7 +109,6 @@ public class BlackJack {
 
         jugador.getMano().forEach(carta -> System.out.println(carta));
 
-        // todo put set estado y print en set ha ganado p perdido
         if (puntajeTotal == 21) {
             jugador.setEstado(JugadorEstado.ganarCon21);
             jugadoresEnJuego.remove(jugador);
