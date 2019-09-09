@@ -11,12 +11,15 @@ public class BlackJack {
     public static boolean juegoTerminado;
 
     public static void main(String[] args) {
-        
+
         jugadoresEnJuego = new ArrayList<Jugador>();
         BarajaInglesa54 baraja = BarajaInglesa54.getBarajaInglesa54();
         baraja.barajar();
         System.out.println();
         Croupier croupier = Croupier.getCroupier();
+
+        // TODO: 9/8/2019 max number of players 10 incluyendo croupier
+        // TODO: 9/8/2019 si tiene 5 cartas ganas
         jugadoresEnJuego.add(new Jugador("Eduardo"));
         jugadoresEnJuego.add(new Jugador("Daniel"));
         jugadoresEnJuego.add(new Jugador("Victor"));
@@ -25,14 +28,13 @@ public class BlackJack {
         gameLoop();
     }
 
-    // TODO: 9/7/2019 use stream when posible
     private static void gameLoop() {
         byte ronda = 0;
         boolean finished = false;
         BarajaInglesa54 baraja = BarajaInglesa54.getBarajaInglesa54();
         Croupier croupier = Croupier.getCroupier();
 
-        //todo generar rondas en metodo aparte
+    // TODO: 9/8/2019 Generar Rondas en método independiente?
         while (!finished) {
             System.out.println("Ronda " + (++ronda));
             System.out.println("La baraja tiene " + baraja.getCantidadDeCartas() + " cartas");
