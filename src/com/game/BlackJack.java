@@ -6,7 +6,7 @@ import com.game.Baraja.Carta;
 import java.util.ArrayList;
 import java.util.Random;
 
-//prueba de git
+// TODO: 9/9/2019 poner colores 
 
 public class BlackJack {
     private static ArrayList<Jugador> jugadoresEnJuego;
