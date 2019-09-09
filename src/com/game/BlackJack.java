@@ -6,6 +6,8 @@ import com.game.Baraja.Carta;
 import java.util.ArrayList;
 import java.util.Random;
 
+//prueba de git
+
 public class BlackJack {
     private static ArrayList<Jugador> jugadoresEnJuego;
     public static boolean juegoTerminado;
