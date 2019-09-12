@@ -1,16 +1,16 @@
 package com.game.Baraja;
 
 public class Carta {
-    private Palo palo;
-    private Rango rango;
+    private CartaPalo palo;
+    private CartaRango rango;
     private boolean bocaAbajo;
 
-    public Carta(Rango rango, Palo palo) {
+    public Carta(CartaRango rango, CartaPalo palo) {
         this(rango);
         this.palo = palo;
     }
 
-    public Carta(Rango rango){
+    public Carta(CartaRango rango){
         this.rango = rango;
         this.bocaAbajo = true;
     }
@@ -22,19 +22,23 @@ public class Carta {
 
     @Override
     public String toString() {
-        if(bocaAbajo) return "Carta oculta : " + rango.toString() + " de " + palo.toString();
-        else {
-            if (rango == Rango.joker1) return "Joker1";
-            else if  (rango == Rango.joker2) return "Joker2";
-            else return rango.toString() + " de " + palo.toString();
-        }
+        String carta = "";
+        if(bocaAbajo) carta += "Carta oculta : ";
+
+        if (rango == CartaRango.JOKER1 || rango == CartaRango.JOKER_2) carta += rango;
+        else carta += rango + " de " + palo;
+        return carta;
+    }
+
+    public void setValorRango(int valor) {
+        this.rango.setValor(valor);
     }
 
     public int getValor() {
         return rango.getValor();
     }
 
-    public Rango getRango() {
+    public CartaRango getRango() {
         return rango;
     }
 
